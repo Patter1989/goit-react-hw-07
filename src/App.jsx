@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Section from "./components/Section/Section.jsx";
 import ContactForm from "./components/ContactForm/ContactForm.jsx"
 import ContactList from "./components/ContactList/ContactList.jsx";
 import SearchBox from "./components/SearchBox/SearchBox.jsx";
-// import contactsData from "./Contacts.json"
 import Modal from "./components/Modal/Modal.jsx"
-import {  useSelector } from "react-redux";
-// import { setFilterValue } from "./redux/filter/filterReducer.js";
-
+import { useDispatch, useSelector } from "react-redux";
+import { apiFetchContacts } from "./redux/contactsOps.js";
+import Loader from "./components/Loader/loader.jsx"
 
 
 const App = () => {
+	const selectLoading = useSelector((state) => state.isLoading);
 	const [modal, setModal] = useState(false)
 	const onOpenModal = () => {
 		setModal(true)
@@ -18,14 +18,11 @@ const App = () => {
 	const onCloseModal = () => {
 		setModal(false);
 	};
-
-	const users = useSelector(
-		(state) => state.contacts.contacts
-	);
-
+	const dispatch = useDispatch();
 	useEffect(() => {
-		localStorage.setItem("contactsData", JSON.stringify(users))
-	}, [users]);
+		dispatch(apiFetchContacts())
+	}, [dispatch]);
+
 
 	return (
 		<div>
@@ -38,13 +35,14 @@ const App = () => {
 				Modal
 			</button>
 			<Section>
-				<ContactForm/>
+				<ContactForm />
 			</Section>
 			<Section>
-				<SearchBox/>
+				<SearchBox />
 			</Section>
+			{selectLoading && <Loader/>}
 			<Section>
-				<ContactList/>
+				<ContactList />
 			</Section>
 		</div>
 	);
