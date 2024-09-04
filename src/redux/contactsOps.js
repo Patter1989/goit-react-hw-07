@@ -37,7 +37,6 @@ export const apiAddContacts = createAsyncThunk(
         `https://66d03b71181d059277ddc3ec.mockapi.io/api/v1/contact`,
         contact
 			);
-			console.log(data);
 			return data;
 		} catch (error) {
 			return thunkApi.rejectWithValue(error.message);
