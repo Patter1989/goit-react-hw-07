@@ -3,11 +3,10 @@ import { apiAddContacts, apiDeleteContacts, apiFetchContacts } from "../contacts
 
 
 const INITIAL_STATE = {
-	contacts: {
 		items: [],
 		loading: false,
 		error: null,
-	},
+
 };
 
 const contactSlice = createSlice({
@@ -15,7 +14,7 @@ const contactSlice = createSlice({
 	initialState: INITIAL_STATE,
 	reducers: {
 		addContact: (state, action) => {
-			state.items.push(action.payload);
+			state.contacts.items.push(action.payload);
 		},
 	},
 	extraReducers: (builder) =>
