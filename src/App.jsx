@@ -10,7 +10,7 @@ import Loader from "./components/Loader/loader.jsx"
 
 
 const App = () => {
-	const selectLoading = useSelector((state) => state.isLoading);
+	const isLoading = useSelector((state) => state.contacts.loading);
 	const [modal, setModal] = useState(false)
 	const onOpenModal = () => {
 		setModal(true)
@@ -40,7 +40,7 @@ const App = () => {
 			<Section>
 				<SearchBox />
 			</Section>
-			{selectLoading && <Loader/>}
+			{isLoading && <Loader/>}
 			<Section>
 				<ContactList />
 			</Section>
